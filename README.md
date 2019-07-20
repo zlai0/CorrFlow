@@ -2,7 +2,7 @@
 
 This repository contains the code (in PyTorch) for the model introduced in the following paper
 
-[Self-supervised Learning for Video Correspondence Flow](https://arxiv.org/abs/1905.00875)
+[Self-supervised Learning for Video Correspondence Flow](https://arxiv.org/abs/1905.00875) (BMVC Oral representation)
 
 by Zihang Lai, Weidi Xie
 
@@ -10,10 +10,10 @@ by Zihang Lai, Weidi Xie
 
 ### Citation
 ```
-@article{Lai19,
+@inproceedings{Lai19,
   title={Self-supervised Learning for Video Correspondence Flow},
   author={Lai, Z. and Xie, W.},
-  journal={arXiv preprint arXiv:1905.00875},
+  booktitle={BMVC},
   year={2019}
 }
 ```
@@ -39,20 +39,103 @@ On both tasks, our approach has achieved state-of-the-art performance, especiall
 
 
 ## Usage
+1. Install dependencies
+2. Download Kinetics datasets. The videos should be decoded in files organized in the following way.
+    ```
+    ROOT_FOLDER/
+    
+        class_label_1/
+            video_label_1/
+                image_00001.jpg
+                image_00002.jpg
+                ...
+            video_label_2/
+           
+        class_label_2/
+            video_label_1/
+            ...
 
+        class_label_3/
+            video_label_1/
+            ...
+        ...
+        
+    ```
+    We use a csv file (functional/feeder/dataset/filelist.csv) for easier image indexing. Available Youtube videos in the Kinetics dataset may have changed at this time. So you may need to generate your own index file. It is easy to do so, just loop over all classes and all videos, record their relative path and the cooresponding frame number. 
+3. Download DAVIS-2017 dataset. There is no need of pre-processing.
 ### Dependencies
 
 - [Python3.5](https://www.python.org/downloads/)
 - [PyTorch(1.0.0)](http://pytorch.org)
+- [Pytorch Correlation module](https://github.com/ClementPinard/Pytorch-Correlation-extension)
 - CUDA 9.0/9.2
 - [Kinetics dataset](https://deepmind.com/research/open-source/open-source-datasets/kinetics/)
+- [OxUvA dataset](https://oxuva.github.io/long-term-tracking-benchmark/)
 - [DAVIS-2017](https://davischallenge.org/davis2017/code.html)
 - [JHMDB](http://jhmdb.is.tue.mpg.de/challenge/JHMDB/datasets)
 
 ### Train
-To be released soon.
+- Use the following command to train on Kinetics dataset
+    ```
+    python main.py --datapath path-to-kinetics --savepath log-path
+    ```
 
+- Recently, we also find the [OxUvA long-term tracking dataset](https://oxuva.github.io/long-term-tracking-benchmark/) yields comparable results. If you find the Kinetics dataset too large or not accessible, you can start with the OxUvA dataset, which is significantly smaller. Train our model on OxUvA with the following command
+    ``` 
+    python main_oxuva.py --datapath path-to-oxuva --savepath log-path
+    ```
+
+- To use OxUvA dataset, you just need to extract all sequences of frames (both training and validation) into the same folder. There should be 337 sequences in total.
+    ```
+    ROOT_FOLDER/
+    
+        vid0000/
+            000000.jpeg
+            000001.jpeg
+            ...
+           
+        vid0001/
+        ...
+        vid0336/
+        
+    ``` 
+
+
+### Test and evaluation
+- Use the following command to test our model on DAVIS-2017 validation dataset for preliminary result (Note: this code may produce slightly different results from official DAVIS benchmark evaluation code) 
+     ``` 
+    python test.py --resume path-to-checkpoint \
+                    --datapath path-to-davis \
+                    --savepath log-path
+    ```
+
+- Use the following command to generate output for official DAVIS testing code
+     ``` 
+    python benchmark.py --resume path-to-checkpoint \
+                    --datapath path-to-davis \
+                    --savepath log-path
+    ```
+
+- Then you can test the output with the official Python evaluation code.
+    ```
+    python evaluation_method.py \
+                    --task semi-supervised \
+                    --results_path log-path
+    ```
 ### Pretrained model
+| Trained on Kinetics | Trained on OxUvA |
+|---|---|
+|[Google drive](https://drive.google.com/open?id=1lONshAVbqm8JWYCeWW7hdim1H2e-9tnI)|[Google drive](https://drive.google.com/open?id=1rcWNKtVOfRxfBEkdJdw_2t3K2GqOIlUf)|
+
+### Todo
+- Release JHMDB testing code
+- Release larger models with higher accuracy
 
 ## Results
-![DAVIS-2017 Results](figures/results.png) 
+![DAVIS-2017 Results](figures/result2.png) 
+![DAVIS-2017 Results](figures/result.png) 
+### Preliminary results on OxUvA
+
+| Dataset | J&F (mean) | J (Mean) | J (Recall) | F (Mean) | F (Recall) |
+|---|---|---|---|---|---|
+| OxUvA| 48.2 | 46.8 | 53.1 | 49.6 | 53.5 | 
