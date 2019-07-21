@@ -123,9 +123,9 @@ On both tasks, our approach has achieved state-of-the-art performance, especiall
                     --results_path log-path
     ```
 ### Pretrained model
-| Trained on Kinetics | Trained on OxUvA |
+| Trained on Kinetics | Trained on OxUvA (updated) |
 |---|---|
-|[Google drive](https://drive.google.com/open?id=1lONshAVbqm8JWYCeWW7hdim1H2e-9tnI)|[Google drive](https://drive.google.com/open?id=1rcWNKtVOfRxfBEkdJdw_2t3K2GqOIlUf)|
+|[Google drive](https://drive.google.com/open?id=1lONshAVbqm8JWYCeWW7hdim1H2e-9tnI)|[Google drive](https://drive.google.com/open?id=1hBufOBoKmHWWKy2-BJObMbYrqDAUJrs7)|
 
 ### Todo
 - Release JHMDB testing code
@@ -138,4 +138,4 @@ On both tasks, our approach has achieved state-of-the-art performance, especiall
 
 | Dataset | J&F (mean) | J (Mean) | J (Recall) | F (Mean) | F (Recall) |
 |---|---|---|---|---|---|
-| OxUvA| 48.2 | 46.8 | 53.1 | 49.6 | 53.5 | 
+| OxUvA| 50.3 | 48.4 | 53.2 | 52.2 | 56.0 | 
