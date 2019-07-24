@@ -15,7 +15,7 @@ def setup_logger(filepath):
     file_handle_name = "file"
     if file_handle_name in [h.name for h in logger.handlers]:
         return
-    if os.path.dirname(filepath) is not '':
+    if os.path.dirname(filepath) != '':
         if not os.path.isdir(os.path.dirname(filepath)):
             os.makedirs(os.path.dirname(filepath))
     file_handle = logging.FileHandler(filename=filepath, mode="a")
