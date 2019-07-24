@@ -124,8 +124,8 @@ def seg2bmap(seg,width=None,height=None):
         for x in range(w):
             for y in range(h):
                 if b[y,x]:
-                    j = 1+floor((y-1)+height / h)
-                    i = 1+floor((x-1)+width  / h)
+                    j = 1+np.floor((y-1)+height / h)
+                    i = 1+np.floor((x-1)+width  / h)
                     bmap[j,i] = 1;
 
     return bmap
