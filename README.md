@@ -122,7 +122,7 @@ On both tasks, our approach has achieved state-of-the-art performance, especiall
                     --task semi-supervised \
                     --results_path log-path
     ```
-### Pretrained model
+### Pretrained model (No need to extract the file)
 | Trained on Kinetics | Trained on OxUvA (updated) |
 |---|---|
 |[Google drive](https://drive.google.com/open?id=1lONshAVbqm8JWYCeWW7hdim1H2e-9tnI)|[Google drive](https://drive.google.com/open?id=1hBufOBoKmHWWKy2-BJObMbYrqDAUJrs7)|
